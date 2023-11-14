@@ -250,12 +250,12 @@ int main()
 
 	vector<std::string> faces
 	{
-		"resources/skybox/right.jpg",
-		"resources/skybox/left.jpg",
-		"resources/skybox/top.jpg",
-		"resources/skybox/bottom.jpg",
-		"resources/skybox/front.jpg",
-		"resources/skybox/back.jpg"
+		"resources/skybox/majesty_rt.tga",
+		"resources/skybox/majesty_lf.tga",
+		"resources/skybox/majesty_up.tga",
+		"resources/skybox/majesty_dn.tga",
+		"resources/skybox/majesty_bk.tga",
+		"resources/skybox/majesty_ft.tga"
 	};
 
 	Skybox skybox = Skybox(faces);
@@ -268,6 +268,9 @@ int main()
 	// load models
 	// -----------
 	Model piso("resources/objects/piso/piso.obj");
+	Model domos("resources/objects/domos/Domoobj.obj");
+	Model tierra("resources/objects/tierra/TierraOBJ.obj");
+	/*
 	Model botaDer("resources/objects/Personaje/bota.obj");
 	Model piernaDer("resources/objects/Personaje/piernader.obj");
 	Model piernaIzq("resources/objects/Personaje/piernader.obj");
@@ -280,12 +283,15 @@ int main()
 	Model casaVieja("resources/objects/casa/OldHouse.obj");
 	//Model cubo("resources/objects/cubo/cube02.obj");
 	Model casaDoll("resources/objects/casa/DollHouse.obj");
-
+	*/
+	
 	ModelAnim animacionPersonaje("resources/objects/Personaje1/PersonajeBrazo.dae");
 	animacionPersonaje.initShaders(animShader.ID);
 
+	/*
 	ModelAnim ninja("resources/objects/ZombieWalk/ZombieWalk.dae");
 	ninja.initShaders(animShader.ID);
+	*/
 
 	//Inicialización de KeyFrames
 	for (int i = 0; i < MAX_FRAMES; i++)
@@ -383,21 +389,25 @@ int main()
 		animShader.setVec3("light.direction", lightDirection);
 		animShader.setVec3("viewPos", camera.Position);
 
-		model = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f, 1.75f, 0.3f)); // translate it down so it's at the center of the scene
+		
+		model = glm::translate(glm::mat4(1.0f), glm::vec3(-40.3f, -100.0f, 0.3f)); // translate it down so it's at the center of the scene
 		model = glm::scale(model, glm::vec3(1.2f));	// it's a bit too big for our scene, so scale it down
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
 		animacionPersonaje.Draw(animShader);
+		
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Segundo Personaje Animacion
 		// -------------------------------------------------------------------------------------------------------------------------
 
+		/*
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(40.3f, 1.75f, 0.3f)); // translate it down so it's at the center of the scene
 		model = glm::scale(model, glm::vec3(0.5f));	// it's a bit too big for our scene, so scale it down
 		model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		animShader.setMat4("model", model);
 		ninja.Draw(animShader);
+		*/
 
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Escenario
@@ -417,6 +427,18 @@ int main()
 		staticShader.setMat4("model", model);
 		piso.Draw(staticShader);
 
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		//model = glm::rotate(model, glm::radians(90.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+		staticShader.setMat4("model", model);
+		domos.Draw(staticShader);
+
+		model = glm::mat4(1.0f);
+		model = glm::scale(model, glm::vec3(2.5f, 2.5f, 2.5f));
+		staticShader.setMat4("model", model);
+		tierra.Draw(staticShader);
+
+		/*
 		model = glm::translate(glm::mat4(1.0f), glm::vec3(0.0f, 0.0f, -70.0f));
 		model = glm::scale(model, glm::vec3(5.0f));
 		staticShader.setMat4("model", model);
@@ -507,6 +529,8 @@ int main()
 		model = glm::translate(model, glm::vec3(0.0f, 2.5f, 0));
 		staticShader.setMat4("model", model);
 		cabeza.Draw(staticShader);
+
+		*/
 		// -------------------------------------------------------------------------------------------------------------------------
 		// Caja Transparente --- Siguiente Práctica
 		// -------------------------------------------------------------------------------------------------------------------------
